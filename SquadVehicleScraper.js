@@ -3,20 +3,29 @@
 const request = require('request');
 const cheerio = require('cheerio');
 
-request('https://squad.fandom.com/wiki/Yehorivka', (error, response, html) => {
-  if (!error && response.statusCode === 200) {
-    const $ = cheerio.load(html);
-    let mapList = [];
-    const rawWikiInput = $('.mw-parser-output');
-    const rawWikiOutput = rawWikiInput
-      .find('table')
-      .next()
-      .each((i, map) => {
-        if ($(map).text().includes('v')) {
-          mapList.push($(map).text());
-        }
-      });
-    mapList.pop();
-    console.log(mapList);
-  }
-});
+const mapList = [];
+
+const loadMap = function (mapName) {
+  request(
+    `https://squad.fandom.com/wiki/${mapName}`,
+    (error, response, html) => {
+      if (!error && response.statusCode === 200) {
+        const $ = cheerio.load(html);
+
+        const rawWikiInput = $('.mw-parser-output');
+        let rawWikiOutput = rawWikiInput
+          .find('table')
+          .next()
+          .each((i, map) => {
+            if ($(map).text().includes('v')) {
+              mapList.push($(map).text());
+            }
+          });
+        mapList.pop();
+        console.log(mapList);
+      }
+    }
+  );
+};
+
+loadMap('Gorodok');
