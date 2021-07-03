@@ -1,3 +1,5 @@
+// All data acquired from open-source Squad Game Wiki: https://squad.fandom.com/wiki/Squad_Wiki
+
 const request = require('request');
 const cheerio = require('cheerio');
 
