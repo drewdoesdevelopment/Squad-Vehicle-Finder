@@ -6,13 +6,17 @@ const cheerio = require('cheerio');
 request('https://squad.fandom.com/wiki/Yehorivka', (error, response, html) => {
   if (!error && response.statusCode === 200) {
     const $ = cheerio.load(html);
-
+    let mapList = [];
     const rawWikiInput = $('.mw-parser-output');
     const rawWikiOutput = rawWikiInput
       .find('table')
       .next()
       .each((i, map) => {
-        console.log($(map).text());
+        if ($(map).text().includes('v')) {
+          mapList.push($(map).text());
+        }
       });
+    mapList.pop();
+    console.log(mapList);
   }
 });
