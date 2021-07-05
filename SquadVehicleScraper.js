@@ -4,6 +4,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 const mapList = [];
+const vehicleList = [];
 
 const loadMap = function (mapName) {
   request(
@@ -13,7 +14,9 @@ const loadMap = function (mapName) {
         const $ = cheerio.load(html);
 
         const rawWikiInput = $('.mw-parser-output');
-        let rawWikiOutput = rawWikiInput
+
+        // Gets the maps from the rawWikiInput container
+        let rawMapOutput = rawWikiInput
           .find('table')
           .next()
           .each((i, map) => {
@@ -22,7 +25,14 @@ const loadMap = function (mapName) {
             }
           });
         mapList.pop();
-        console.log(mapList);
+        // console.log(mapList);
+
+        // Gets the vehicles from the rawWikiInput container
+        let rawVehicleOutput = rawWikiInput.find('td').find('p').text();
+
+        console.log(rawVehicleOutput);
+
+        let combinedArray = [w];
       }
     }
   );
