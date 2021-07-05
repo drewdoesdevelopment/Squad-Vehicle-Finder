@@ -31,8 +31,6 @@ const loadMap = function (mapName) {
         let rawVehicleOutput = rawWikiInput.find('td').find('p').text();
 
         console.log(rawVehicleOutput);
-
-        let combinedArray = [w];
       }
     }
   );
